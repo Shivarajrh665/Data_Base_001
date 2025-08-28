@@ -475,3 +475,263 @@ docker run -p 8080:80 my-ecs-app
 ---
 
 Would you like me to provide a **real working code + screenshots + video tutorial** for any one of these?
+
+Sure! Here's a **beginner-friendly Linux command tutorial** with **real examples**, explained step by step. This will help you **practice** and understand what each command does.
+
+---
+
+## 🧑‍💻 Scenario: You have an EC2 instance or Linux system and want to create, manage, and view files using basic Linux commands.
+
+---
+
+## 📁 Step 1: Navigate the File System
+
+### Command: `pwd`
+
+📌 Shows your current working directory
+
+```bash
+$ pwd
+/home/ec2-user
+```
+
+---
+
+### Command: `ls`
+
+📌 Lists files and folders in the current directory
+
+```bash
+$ ls
+Documents  Downloads  index.html  my-folder
+```
+
+---
+
+### Command: `cd foldername`
+
+📌 Changes directory (move into a folder)
+
+```bash
+$ cd my-folder
+$ pwd
+/home/ec2-user/my-folder
+```
+
+---
+
+### Command: `cd ..`
+
+📌 Move back one directory
+
+```bash
+$ cd ..
+$ pwd
+/home/ec2-user
+```
+
+---
+
+## 📄 Step 2: Create Files and Folders
+
+### Command: `mkdir`
+
+📌 Creates a new folder
+
+```bash
+$ mkdir website
+$ ls
+Documents  Downloads  website
+```
+
+---
+
+### Command: `touch`
+
+📌 Creates a new empty file
+
+```bash
+$ cd website
+$ touch index.html
+$ ls
+index.html
+```
+
+---
+
+### Command: `echo` and `cat`
+
+📌 Write and read content in a file
+
+```bash
+$ echo "Hello World from Linux!" > index.html
+$ cat index.html
+Hello World from Linux!
+```
+
+---
+
+## ✏️ Step 3: Edit Files
+
+### Command: `nano`
+
+📌 Open a basic text editor
+
+```bash
+$ nano index.html
+```
+
+➡️ Add the following HTML code:
+
+```html
+<!DOCTYPE html>
+<html>
+<head><title>My Website</title></head>
+<body><h1>Hello from EC2!</h1></body>
+</html>
+```
+
+➡️ Press `Ctrl + O` to save, then `Enter`, and `Ctrl + X` to exit.
+
+---
+
+## 🗂️ Step 4: Copy, Move, Rename and Delete
+
+### Command: `cp` – Copy a file
+
+```bash
+$ cp index.html backup.html
+$ ls
+index.html  backup.html
+```
+
+---
+
+### Command: `mv` – Move or Rename
+
+📌 Rename file:
+
+```bash
+$ mv backup.html old.html
+$ ls
+index.html  old.html
+```
+
+📌 Move file to another directory:
+
+```bash
+$ mkdir backup
+$ mv old.html backup/
+$ ls
+index.html  backup
+```
+
+---
+
+### Command: `rm` – Delete a file
+
+```bash
+$ rm index.html
+$ ls
+backup
+```
+
+---
+
+### Command: `rm -r` – Delete a folder
+
+```bash
+$ rm -r backup
+$ ls
+```
+
+---
+
+## ⚙️ Step 5: Install and Start a Web Server (Apache)
+
+This is useful if you’re on an **Amazon EC2 Linux instance**.
+
+### Update and install Apache:
+
+```bash
+$ sudo yum update -y
+$ sudo yum install httpd -y
+```
+
+### Start Apache:
+
+```bash
+$ sudo systemctl start httpd
+```
+
+### Create a website:
+
+```bash
+$ echo "<h1>My Website is Live!</h1>" | sudo tee /var/www/html/index.html
+```
+
+### Access the site:
+
+* Open a browser
+* Go to: `http://<your-EC2-public-IP>`
+
+✅ You’ll see: **"My Website is Live!"**
+
+---
+
+## 🔒 Step 6: Permissions
+
+### View file permissions:
+
+```bash
+$ ls -l
+-rw-rw-r-- 1 ec2-user ec2-user 30 Aug 28 13:00 index.html
+```
+
+### Make a file executable:
+
+```bash
+$ chmod +x script.sh
+```
+
+---
+
+## 📊 Step 7: System Info
+
+### View disk space:
+
+```bash
+$ df -h
+```
+
+### View memory usage:
+
+```bash
+$ free -m
+```
+
+---
+
+## 🧾 Summary Cheat Sheet
+
+| Command | Example                   | Description            |
+| ------- | ------------------------- | ---------------------- |
+| `pwd`   | `pwd`                     | Show current directory |
+| `ls`    | `ls -l`                   | List files             |
+| `cd`    | `cd my-folder`            | Change directory       |
+| `mkdir` | `mkdir test`              | Make a folder          |
+| `touch` | `touch index.html`        | Create file            |
+| `echo`  | `echo "Hello" > file.txt` | Write to file          |
+| `cat`   | `cat file.txt`            | Read file              |
+| `nano`  | `nano index.html`         | Edit file              |
+| `cp`    | `cp a b`                  | Copy file              |
+| `mv`    | `mv a b`                  | Move/rename            |
+| `rm`    | `rm file`                 | Delete file            |
+| `rm -r` | `rm -r folder`            | Delete folder          |
+| `chmod` | `chmod +x file.sh`        | Make file executable   |
+| `sudo`  | `sudo command`            | Run as admin/root      |
+
+---
+
+Would you like a downloadable **PDF guide** or a **video tutorial** showing these steps in an EC2 instance?
+
