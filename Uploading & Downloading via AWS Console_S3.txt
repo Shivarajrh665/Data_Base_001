@@ -1,0 +1,26 @@
+Option 1: Uploading & Downloading via AWS Console
+Uploading an Object
+
+Sign in to the AWS Console and open the Amazon S3 service.
+
+Navigate to your desired bucket and click on its Objects tab.
+
+Click Upload, then choose Add files (or Add folder) to select items from your computer.
+
+Once selected, click Upload to begin.
+
+AWS Documentation
+
+Downloading an Object
+
+Go to the bucket’s Objects tab, click on the object name, and use the Download option to save it locally.
+
+AWS Documentation
+
+Option 2: Uploading & Downloading via AWS CLI
+
+Make sure you have the AWS CLI installed and configured.
+
+Supported Commands (s3 high-level)
+
+Use these for quick tasks:

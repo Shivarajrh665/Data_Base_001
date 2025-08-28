@@ -1,0 +1,76 @@
+Option 1: Create an S3 Bucket via AWS Management Console
+
+Steps:
+
+Sign in to the AWS Console and open the Amazon S3 service.
+
+AWS Documentation
++1
+
+Select your AWS Region (top-right of the console). Once set, the bucket’s region cannot be changed. Choose a region close to your users to minimize latency and meet regulatory requirements.
+
+AWS Documentation
++2
+AWS Documentation
++2
+
+In the left menu, click Create bucket (under "General purpose buckets").
+
+AWS Documentation
++1
+
+Provide the bucket name:
+
+Must be globally unique within the partition (e.g., aws, aws-cn)
+
+3–63 characters, only lowercase letters, numbers, periods (.), and hyphens (-)
+
+Begin and end with a letter or number
+
+Best to avoid periods unless necessary (e.g., static website use)
+
+AWS Documentation
++1
+GeeksforGeeks
+
+Configure Object Ownership:
+
+Default: Bucket owner enforced (ACLs disabled; bucket owner owns all objects)
+
+Alternatives allow object uploader ownership or uploaders must grant control via ACL
+
+AWS Documentation
++1
+
+Set Block Public Access options. By default all settings are enabled—recommended for most cases to prevent unintended public exposure.
+
+AWS Documentation
++1
+
+(Optional) Enable Versioning to preserve, retrieve, and restore multiple versions of objects.
+
+AWS Documentation
++1
+
+(Optional) Add Tags—key/value pairs to help with cost allocation and organization.
+
+AWS Documentation
++1
+
+(Optional) Configure Default Encryption:
+
+Choices: SSE‑S3 (Amazon-managed keys), SSE‑KMS (KMS‑managed), DSSE‑KMS (dual-layer)
+
+If using KMS, be mindful of request‑per‑second quotas and use S3 Bucket Keys to reduce costs.
+
+AWS Documentation
++1
+
+(Optional) Enable Object Lock for WORM (write-once-read-many) object retention—automatically enables versioning.
+
+AWS Documentation
+
+Click Create bucket to finish.
+
+AWS Documentation
++1

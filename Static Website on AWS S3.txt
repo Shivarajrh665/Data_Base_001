@@ -1,0 +1,111 @@
+[How to Host a Static Website on AWS S3 Bucket | Step‑by‑Step Practical Guide](https://www.youtube.com/watch?v=sDRtgOhYulM&utm_source=chatgpt.com)
+
+Here’s a great YouTube tutorial that walks you through the process of hosting a static website using Amazon S3—from bucket creation to configuring public access and testing the live site.
+
+---
+
+### Step‑by‑Step Guide to Host a Static Website on AWS S3
+
+#### 1. Create S3 Bucket
+
+* Sign in to the AWS Management Console and open the Amazon S3 service.
+* Click **Create Bucket**, specify a **globally unique bucket name** and select a **region** near your users.
+  Ensure the name adheres to DNS naming conventions.([AWS Documentation][1], [codeair.in][2])
+
+#### 2. Upload Website Files
+
+* Open your bucket and go to the **Objects** (or **Overview**) tab.
+* Click **Upload** → **Add files** (HTML, CSS, JS, images like `index.html`).
+* Upload all necessary files.([AWS Documentation][3], [Medium][4], [codeair.in][2])
+
+#### 3. Enable Static Website Hosting
+
+* Go to the **Properties** tab of the bucket.
+* Under **Static website hosting**, click **Edit** → choose **Enable** → select **Host a static website**.
+* Enter your **Index document** (e.g., `index.html`) and optionally an **Error document** (e.g., `error.html`).
+* Save changes and note the **website endpoint URL** (e.g., `http://<bucket-name>.s3-website-<region>.amazonaws.com`). ([AWS Documentation][5], [codeair.in][2])
+
+#### 4. Allow Public Read Access
+
+##### Option A — Bucket Policy (Recommended)
+
+* Go to the **Permissions** tab → **Block public access** → click **Edit** → uncheck **Block all public access** and confirm.([AWS Documentation][6])
+* Under **Bucket Policy**, add a policy like:
+
+  ```json
+  {
+    "Version": "2012-10-17",
+    "Statement": [{
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }]
+  }
+  ```
+
+  Replace `your-bucket-name` accordingly.([AWS Documentation][6], [Medium][4], [codeair.in][2], [swathireddy.hashnode.dev][7])
+
+##### Option B — Object ACLs (Less preferred)
+
+* Select your files → use **Actions → Make public** to grant public-read ACL at file level.([Medium][8])
+
+#### 5. Test Your Website
+
+* Visit the website endpoint provided in the **Properties** panel (HTTP only).
+* You should see your `index.html` rendered.([Medium][4], [codeair.in][2], [swathireddy.hashnode.dev][7])
+
+#### 6. (Optional) Add Custom Domain with HTTPS via CloudFront
+
+* Static S3 hosting only supports HTTP. To serve site over HTTPS:
+
+  * Set up a **CloudFront distribution** with your S3 bucket as the origin.
+  * Use **AWS Certificate Manager (ACM)** to generate an SSL certificate.
+  * In Route 53 (or your DNS provider), create an **Alias (A) record** pointing to your CloudFront distribution.([zignuts.com][9], [FreeCodeCamp][10], [WIRED][11], [Cloud Computing and DevOps][12])
+
+Reditt users also strongly recommend using CloudFront:
+
+> “Nowadays, no one should be using S3 for website hosting without CloudFront” —([Reddit][13])
+> “You cannot access a S3 bucket with a custom domain name with HTTPS… solution is to create a CloudFront CDN…” —([Reddit][14])
+
+---
+
+### Summary Table
+
+| Step | Task                                                               |
+| ---- | ------------------------------------------------------------------ |
+| 1    | Create S3 bucket (unique name, region)                             |
+| 2    | Upload static site files (HTML, CSS, JS)                           |
+| 3    | Enable static website hosting (index/error docs)                   |
+| 4    | Set public read access via bucket policy or ACL                    |
+| 5    | Access site via S3 website endpoint                                |
+| 6    | (Optional) Setup CloudFront + Route 53 for HTTPS and custom domain |
+
+---
+
+### Best Practices
+
+* **Use HTTPS** in the modern web—front your S3 site with CloudFront and ACM.
+* **Keep private data secure**—only public content should be exposed.
+* **Enable versioning** on the bucket for easy content rollback if needed.
+* Use **CloudFront caching and SSL** for performance, security, and lower costs.([zignuts.com][9], [AWS Documentation][1], [Reddit][13])
+
+---
+
+Need help configuring CloudFront, Route 53, or automating this via Terraform/CDK? Just let me know—happy to walk you through it!
+
+[1]: https://docs.aws.amazon.com/whitepapers/latest/build-static-websites-aws/use-amazon-s3-website-hosting-to-host-without-a-single-web-server.html?utm_source=chatgpt.com "Use Amazon S3 website hosting to host without a single web server - Hosting Static Websites on AWS"
+[2]: https://www.codeair.in/news/hosting-a-static-website-on-aws-s3/?utm_source=chatgpt.com "Hosting Static Website on AWS S3, step by step guide - CodeAir"
+[3]: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started-s3.html?utm_source=chatgpt.com "Use your domain for a static website in an Amazon S3 bucket - Amazon Route 53"
+[4]: https://medium.com/%40joywanjikum/how-to-host-a-static-site-on-aws-s3-easy-to-follow-guide-6acabd88fe65?utm_source=chatgpt.com "How to Host a Static Site on AWS S3 — Easy to Follow Guide | by Joy Ngaru | Medium"
+[5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/EnableWebsiteHosting.html?utm_source=chatgpt.com "Enabling website hosting - Amazon Simple Storage Service"
+[6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html?utm_source=chatgpt.com "Tutorial: Configuring a static website on Amazon S3 - Amazon Simple Storage Service"
+[7]: https://swathireddy.hashnode.dev/how-to-host-a-static-website-using-amazon-s3?utm_source=chatgpt.com "Static Website Hosting on Amazon S3"
+[8]: https://sudheer-baraker.medium.com/step-by-step-guide-hosting-a-static-website-on-aws-s3-660b81bea177?utm_source=chatgpt.com "Step-by-Step Guide: Hosting a Static Website on AWS S3 | by Sudheer | Medium"
+[9]: https://www.zignuts.com/blog/how-to-host-static-website-on-aws?utm_source=chatgpt.com "How to Host a Static Website on AWS – Complete Guide"
+[10]: https://www.freecodecamp.org/news/how-to-host-a-static-website-with-s3-cloudfront-and-route53-7cbb11d4aeea?utm_source=chatgpt.com "How to Host a Static Website with S3, CloudFront and Route53"
+[11]: https://www.wired.com/2013/01/host-your-static-website-on-amazon-s3-no-www-necessary?utm_source=chatgpt.com "Host Your Static Website on Amazon S3, No WWW Necessary"
+[12]: https://www.bitslovers.com/s3-for-static-website-hosting/?utm_source=chatgpt.com "Using Amazon S3 for Static Website Hosting: A Guide | Bits Lovers' - Cloud Computing and DevOps"
+[13]: https://www.reddit.com/r/aws/comments/1fo4nve?utm_source=chatgpt.com "Is there a point for S3 website hosting?"
+[14]: https://www.reddit.com/r/AWS_Certified_Experts/comments/12ilakb?utm_source=chatgpt.com "Mapping S3 Static website to domain in Route 53"
